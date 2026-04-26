@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/resize-image-to-20kb", "destination": "/resize-image-to-20kb.html" },
+    { "source": "/jpg-to-png", "destination": "/jpg-to-png.html" },
+    { "source": "/image-to-pdf", "destination": "/image-to-pdf.html" }
+  ]
+}
