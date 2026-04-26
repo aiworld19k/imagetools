@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Resize Image to 20KB Online Free</title>
+<meta name="description" content="Resize image to 20KB online free for forms and exams. Fast, secure and easy tool.">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body { background:#f5f7fb; font-family:'Segoe UI'; }
+.navbar {
+  background: #ffffff;
+  padding: 12px 0;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+}
+
+.navbar .nav-link {
+  color: #333;
+  font-weight: 500;
+  margin-left: 15px;
+  transition: 0.2s;
+}
+
+.navbar .nav-link:hover {
+  color: #0d6efd;
+}
+
+.navbar .nav-link.active {
+  color: #0d6efd;
+}
+.main-box {
+  max-width:600px; margin:auto; margin-top:60px;
+  background:white; padding:35px; border-radius:15px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08); text-align:center;
+}
+.footer {
+  background: #ffffff;
+  padding: 40px 0;
+  border-top: 1px solid #eee;
+}
+
+.footer h5, .footer h6 {
+  font-weight: 600;
+}
+
+.footer a {
+  text-decoration: none;
+  color: #555;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.footer a:hover {
+  color: #0d6efd;
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold" href="index.html" style="font-size:22px;">
+      Image<span style="color:#0d6efd;">Tools</span>
+    </a>
+
+    <!-- Mobile toggle -->
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Menu -->
+    <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+      <ul class="navbar-nav align-items-center">
+
+        <li class="nav-item">
+          <a class="nav-link active" href="resize-image-to-20kb.html">Resize</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="jpg-to-png.html">JPG to PNG</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="image-to-pdf.html">Image to PDF</a>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+<div class="main-box">
+<h1>Resize Image to KB</h1>
+<p class="text-muted">Reduce image size for forms & uploads</p>
+
+<input type="file" id="upload" class="form-control mb-3">
+<input type="number" id="targetSize" class="form-control mb-3" placeholder="Enter size in KB">
+
+<button onclick="compressImage()" class="btn btn-primary w-100 mb-3">Compress</button>
+<a id="downloadLink" class="btn btn-success w-100" style="display:none;">Download</a>
+</div>
+
+<div class="container mt-5">
+<h2>About this tool</h2>
+<p>This tool helps resize images to 20KB, 50KB or any size for job applications and government forms.</p>
+</div>
+
+<footer class="footer mt-5">
+  <div class="container">
+
+    <div class="row text-center text-md-start">
+
+      <!-- Brand -->
+      <div class="col-md-4 mb-3">
+        <h5>ImageTools</h5>
+        <p class="text-muted">
+          Free online tools to resize images, convert formats and simplify your workflow.
+        </p>
+      </div>
+
+      <!-- Tools -->
+      <div class="col-md-4 mb-3">
+        <h6>Tools</h6>
+        <ul class="list-unstyled">
+          <li><a href="resize-image-to-20kb.html">Resize Image</a></li>
+          <li><a href="jpg-to-png.html">JPG to PNG</a></li>
+          <li><a href="image-to-pdf.html">Image to PDF</a></li>
+        </ul>
+      </div>
+
+      <!-- Info -->
+      <div class="col-md-4 mb-3">
+        <h6>Info</h6>
+        <ul class="list-unstyled">
+          <li><a href="about.html">About</a></li>
+           <li><a href="privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <hr>
+
+    <div class="text-center text-muted">
+      © 2026 ImageTools. All rights reserved.
+    </div>
+
+  </div>
+</footer>
+
+<script>
+function compressImage() {
+  const file = document.getElementById("upload").files[0];
+  const targetSize = document.getElementById("targetSize").value;
+
+  if (!file || !targetSize) return alert("Upload file & enter size");
+
+  let quality = 0.9;
+  const reader = new FileReader();
+
+  reader.onload = function(e) {
+    const img = new Image();
+    img.src = e.target.result;
+
+    img.onload = function() {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      function loop() {
+        ctx.drawImage(img,0,0);
+        canvas.toBlob(function(blob){
+          let sizeKB = blob.size/1024;
+
+          if(sizeKB > targetSize && quality > 0.1){
+            quality -= 0.05;
+            loop();
+          } else {
+            const url = URL.createObjectURL(blob);
+            const link = document.getElementById("downloadLink");
+            link.href = url;
+            link.style.display="block";
+          }
+        },"image/jpeg",quality);
+      }
+      loop();
+    };
+  };
+  reader.readAsDataURL(file);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Image to PDF Converter Online Free</title>
+<meta name="description" content="Convert image to PDF online free quickly and securely.">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+body { background:#f5f7fb; font-family:'Segoe UI'; }
+.navbar {
+  background: #ffffff;
+  padding: 12px 0;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+}
+
+.navbar .nav-link {
+  color: #333;
+  font-weight: 500;
+  margin-left: 15px;
+  transition: 0.2s;
+}
+
+.navbar .nav-link:hover {
+  color: #0d6efd;
+}
+
+.navbar .nav-link.active {
+  color: #0d6efd;
+}
+.main-box {
+  max-width:600px; margin:auto; margin-top:60px;
+  background:white; padding:35px; border-radius:15px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08); text-align:center;
+}
+.footer {
+  background: #ffffff;
+  padding: 40px 0;
+  border-top: 1px solid #eee;
+}
+
+.footer h5, .footer h6 {
+  font-weight: 600;
+}
+
+.footer a {
+  text-decoration: none;
+  color: #555;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.footer a:hover {
+  color: #0d6efd;
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold" href="index.html" style="font-size:22px;">
+      Image<span style="color:#0d6efd;">Tools</span>
+    </a>
+
+    <!-- Mobile toggle -->
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Menu -->
+    <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+      <ul class="navbar-nav align-items-center">
+
+        <li class="nav-item">
+          <a class="nav-link active" href="resize-image-to-20kb.html">Resize</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="jpg-to-png.html">JPG to PNG</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="image-to-pdf.html">Image to PDF</a>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+<div class="main-box">
+<h1>Image to PDF Converter</h1>
+<p class="text-muted">Convert image into PDF instantly</p>
+
+<input type="file" id="imgToPdf" class="form-control mb-3">
+
+<button onclick="convertToPDF()" class="btn btn-primary w-100 mb-3">Convert</button>
+<a id="pdfLink" class="btn btn-success w-100" style="display:none;">Download</a>
+</div>
+
+<div class="container mt-5">
+<h2>About this tool</h2>
+<p>Convert your images into PDF files easily for documents and sharing.</p>
+</div>
+
+<footer class="footer mt-5">
+  <div class="container">
+
+    <div class="row text-center text-md-start">
+
+      <!-- Brand -->
+      <div class="col-md-4 mb-3">
+        <h5>ImageTools</h5>
+        <p class="text-muted">
+          Free online tools to resize images, convert formats and simplify your workflow.
+        </p>
+      </div>
+
+      <!-- Tools -->
+      <div class="col-md-4 mb-3">
+        <h6>Tools</h6>
+        <ul class="list-unstyled">
+          <li><a href="resize-image-to-20kb.html">Resize Image</a></li>
+          <li><a href="jpg-to-png.html">JPG to PNG</a></li>
+          <li><a href="image-to-pdf.html">Image to PDF</a></li>
+        </ul>
+      </div>
+
+      <!-- Info -->
+     <div class="col-md-4 mb-3">
+        <h6>Info</h6>
+        <ul class="list-unstyled">
+          <li><a href="about.html">About</a></li>
+           <li><a href="privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <hr>
+
+    <div class="text-center text-muted">
+      © 2026 ImageTools. All rights reserved.
+    </div>
+
+  </div>
+</footer>
+
+<script>
+function convertToPDF() {
+  const file = document.getElementById("imgToPdf").files[0];
+  if (!file) return alert("Upload image");
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.src = e.target.result;
+
+    img.onload = function() {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img,0,0);
+
+      const imgData = canvas.toDataURL("image/jpeg");
+
+      const pdf = new window.jspdf.jsPDF();
+      pdf.addImage(imgData,'JPEG',0,0,210,297);
+
+      const link = document.getElementById("pdfLink");
+      link.href = pdf.output("bloburl");
+      link.style.display="block";
+    };
+  };
+  reader.readAsDataURL(file);
+}
+</script>
+
+</body>
+</html>
